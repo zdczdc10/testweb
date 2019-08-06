@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<HTML>    
+    <HEAD>        
+        <META http-equiv="Content-Type" content="text/html; charset=utf-8" />        
+        <TITLE>js动态的在页面上增加或删除一个文本框         
+        </TITLE>
+<SCRIPT type="text/javascript">
+  var textNumber = 1;
+  function addTextBox(form, afterElement) {
+  // Increment the textbox number
+  textNumber++;
+  // Create the label
+  var label = document.createElement("label");
+  // Create the textbox
+  var textField = document.createElement("input");
+  textField.setAttribute("type","text");
+  textField.setAttribute("name","txt"+textNumber);
+  textField.setAttribute("id","txt"+textNumber);
+  // Add the label's text
+  label.appendChild(document.createTextNode("Text Box #"+textNumber+": "));
+  // Put the textbox inside
+  label.appendChild(textField);
+  // Add it all to the form
+  form.insertBefore(label,afterElement);
+  return false;
+  }
+  function removeTextBox(form) {
+  if (textNumber > 1) { // If there's more than one text box
+    // Remove the last one added
+    form.removeChild(document.getElementById("txt"+textNumber).parentNode);
+    textNumber--;
+  }
+  }
+</SCRIPT>
+<STYLE type="text/css">
+    label {display:block;} 
+</STYLE>    
+    </HEAD>    
+    <BODY>        
+        <FORM id="myForm" method="get" action="./">        
+        <LABEL>Text Box #1:              
+            <INPUT type="text" name="txt1" id="txt1">        
+        </LABEL>        
+        <P>            
+            <INPUT type="button" value="Add Textbox" onclick="addTextBox(this.form,this.parentNode)">              
+            <INPUT type="button" value="Remove Textbox" onclick="removeTextBox(this.form)">        
+        </P>        
+        <P>            
+            <INPUT type="submit" value="Submit">        
+        </P>        
+        </FORM>    
+    </BODY>
+</HTML>
